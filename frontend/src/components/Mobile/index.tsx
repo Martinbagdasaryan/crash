@@ -18,7 +18,7 @@ const Mobile = () => {
     const { isKeybordOpen } = useSelector(selectSettings);
 
     return (
-        <div className="bg-blue-800 w-full h-full">
+        <div className="bg-[#050807] w-full h-full">
             <Click />
             <ErrorPopup />
             <Canvas />

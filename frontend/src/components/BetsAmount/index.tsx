@@ -74,16 +74,15 @@ const BetsAmount: React.FC<BetsAmountProps> = ({ index, setBetAmount }) => {
 	useEffect(() => {
 		setRawValue(String(amount));
 	}, [amount]);
-
 	return (
 		<div className="flex items-center justify-center gap-1 w-full flex-col">
 			<div
-				className="relative flex justify-center items-center gap-1 w-full rounded-lg cursor-pointer bg-sky-900/40 shadow-[0_0_3px_rgba(0,0,0,0.3)] group h-9"
+				className="relative flex justify-center items-center gap-2 w-full rounded-xl cursor-pointer bg-emerald-950/40 border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 group h-10"
 				onClick={handleInputClick}
 			>
 				<span
 					className={cn(
-						'px-1 py-0.5 rounded-full text-center bet-input bg-transparent font-bold bg-purple-500',
+						'text-center font-black text-emerald-400 text-sm ml-2',
 						{ 'caret-transparent': isMobile },
 					)}
 				>
@@ -103,14 +102,15 @@ const BetsAmount: React.FC<BetsAmountProps> = ({ index, setBetAmount }) => {
 					max={maxBet}
 					step={0.01}
 					className={cn(
-						'rounded-lg text-center bet-input bg-transparent font-bold text-[18px] cursor-pointer',
+						'rounded-lg text-center bg-transparent font-black text-[20px] text-white outline-none cursor-pointer tracking-tight',
 						{ 'caret-transparent': isMobile },
 					)}
 				/>
+
 				<button
 					type="button"
 					onClick={() => setBetAmount(0)}
-					className="absolute right-4 text-[26px] opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200"
+					className="absolute right-3 text-emerald-500 hover:text-white text-[22px] opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity duration-200"
 				>
 					×
 				</button>

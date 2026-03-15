@@ -28,21 +28,28 @@ const AutoBetPopup: React.FC = () => {
 				isAutoBetCount: roundCount > 0 ? roundCount + 1 : (lastCount || 9999),
 			}),
 		);
-
 		dispatch(setPopupType(null));
 	};
 
-
 	return (
-		<div className="w-full h-full flex flex-col justify-between">
-			<div className="w-full h-[20%] text-center text-[18px] font-[700]">Auto play</div>
+		<div className="w-full h-full flex flex-col justify-between p-4 bg-[#050a09] text-white">
+			<div className="w-full h-[15%] text-center text-[14px] font-black uppercase tracking-[0.3em] text-emerald-500/60">
+				Auto Play Settings
+			</div>
 
-			<div className="w-full h-[60%] flex flex-col justify-center items-center">
-				<div className=" font-[400] flex flex-col justify-center items-center gap-1">
-					<span>Number of rounds: {roundCount || lastCount - 1}</span>
-					<span>Total bet: {totalBet || betAmount * lastCount - 1}</span>
+			<div className="w-full h-[65%] flex flex-col justify-center items-center gap-2">
+				<div className="flex flex-col justify-center items-center gap-2 p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/10 w-full max-w-[320px]">
+					<div className="flex justify-between w-full">
+						<span className="text-slate-400 text-xs uppercase font-bold">Rounds:</span>
+						<span className="text-emerald-400 font-black">{roundCount || (lastCount > 0 ? lastCount - 1 : '∞')}</span>
+					</div>
+					<div className="flex justify-between w-full border-t border-emerald-500/5 pt-2">
+						<span className="text-slate-400 text-xs uppercase font-bold">Total Bet:</span>
+						<span className="text-white font-black">{(totalBet || betAmount * (lastCount > 0 ? lastCount - 1 : 0)).toFixed(2)}</span>
+					</div>
 				</div>
-				<div className="flex justify-around items-center w-full h-full gap-1 mob:w-full max-w-[400px]">
+
+				<div className="grid grid-cols-3 gap-3 w-full max-w-[320px]">
 					{roundCounts.map((ro) => (
 						<button
 							key={ro}
@@ -50,23 +57,29 @@ const AutoBetPopup: React.FC = () => {
 								setRoundCount(ro);
 								setTotalBet(betAmount * ro);
 							}}
-							className={cn('w-14 h-9 rounded-full bg-blue-900 shadow-lg font-[600]', {
-								'bg-blue-600': roundCount === ro,
-							})}
+							className={cn(
+								'h-11 rounded-xl font-black transition-all duration-200 border text-sm',
+								roundCount === ro
+									? 'bg-emerald-500 border-emerald-400 text-black shadow-[0_0_20px_rgba(16,185,129,0.4)] scale-105'
+									: 'bg-emerald-950/30 border-emerald-500/20 text-emerald-500/70 hover:border-emerald-500 hover:text-emerald-400'
+							)}
 						>
 							{ro}
 						</button>
 					))}
 				</div>
 			</div>
-			<div className="w-full h-[20%] flex justify-center items-center">
+
+			{/* Кнопка START: Большая и яркая */}
+			<div className="w-full h-[20%] flex justify-center items-center pt-2">
 				<button
 					onClick={onStart}
 					className={cn(
-						'relative flex justify-center items-center rounded-lg h-full w-full max-w-[400px] overflow-hidden inset-shadow-sm font-[600] bg-blue-600',
+						'relative flex justify-center items-center rounded-2xl h-14 w-full max-w-[320px] font-black uppercase tracking-widest transition-all duration-300',
+						'bg-emerald-500 text-black shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_45px_rgba(16,185,129,0.5)] active:scale-95'
 					)}
 				>
-					Start
+					Start Autoplay
 				</button>
 			</div>
 		</div>

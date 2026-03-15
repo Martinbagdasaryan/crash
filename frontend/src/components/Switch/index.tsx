@@ -12,7 +12,6 @@ import { GAME_STATE } from '../../utils/enums';
 interface SelectorProps {
 	index: number;
 }
-
 const Switch = ({ index }: SelectorProps) => {
 	const dispatch = useDispatch();
 	const { windowInfo } = useSelector(selectSettings);
@@ -26,17 +25,13 @@ const Switch = ({ index }: SelectorProps) => {
 	const { bets, state } = useSelector(selectGame);
 	const userBet = bets?.find((bet) => bet.index === index);
 
-
+	// Логика остается без изменений
 	const setAutoBetCount = (isAutoBetCount: boolean) => {
 		if (!!isAutoBetCount) {
 			sendAutoPlay(999);
-		}
-		else {
-
+		} else {
 			sendAutoPlay(null);
-
 			if (state === GAME_STATE.WaitingForBets) {
-
 				dispatch(setBalance(+balance + (userBet?.amount ?? 0)));
 				dispatch(setClearBets(index));
 				socket?.emit(SEND_ACTIONS.CancleBets, { boxIndex: index, playerId: playerId });
@@ -51,35 +46,42 @@ const Switch = ({ index }: SelectorProps) => {
 			isKeybordOpen: false,
 			isAutoBetCount: count,
 		};
-
 		dispatch(setWindowInfo(newInfo));
 	};
 
 	return (
 		<div
+			onClick={() => setAutoBetCount(!isAutoBetCount)}
 			className={cn(
-				'w-10 h-[18px] bg-gray-300 shadow-[0_0_3px_rgba(0,0,0,0.3)] relative rounded-full duration-300 cursor-pointer',
+				'group w-10 h-[22px] relative rounded-full duration-300 cursor-pointer p-[2px] transition-all',
+				'bg-emerald-950/40 border border-emerald-500/20',
 				{
-					'bg-blue-700': isActive,
+					'bg-emerald-500 border-white/20 shadow-[0_0_15px_rgba(16,185,129,0.6)]': isActive,
 				},
 			)}
-			onClick={() => {
-				setAutoBetCount(!isAutoBetCount);
-			}}
 		>
+			<div className={cn(
+				"absolute inset-0 rounded-full transition-opacity duration-300",
+				isActive ? "opacity-0" : "opacity-100"
+			)}>
+				<div className="absolute top-1/2 left-1.5 -translate-y-1/2 w-1 h-1 rounded-full bg-emerald-500/20" />
+			</div>
+
 			<div
 				className={cn(
-					'absolute top-[1px] left-[1px] w-4 h-4 bg-white rounded-full shadow-md transform transition-all duration-300 ease-in-out overflow-hidden',
+					'w-4 h-4 rounded-full shadow-lg transform transition-all duration-300 ease-in-out flex items-center justify-center',
 					{
-						'left-[23px]': isActive,
-					},
-					{
-						buttonAnimation: !isActive,
-					},
+						'translate-x-5 bg-black': isActive, // Черный рычажок на зеленом фоне
+						'translate-x-0 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]': !isActive, // Зеленый рычажок на темном
+					}
 				)}
-			/>
+			>
+				<div className={cn(
+					"w-1 h-1 rounded-full",
+					isActive ? "bg-emerald-500" : "bg-white/40"
+				)} />
+			</div>
 		</div>
 	);
 };
-
 export default Switch;

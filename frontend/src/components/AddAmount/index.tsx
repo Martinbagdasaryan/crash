@@ -81,14 +81,19 @@ const AddAmount: React.FC<AddAmountProps> = ({ setBetAmount, index }) => {
 	useEffect(() => {
 		setCashOutValue(String(!!cashOut ? cashOut : ''));
 	}, [cashOut]);
-
 	return (
 		<div className="flex justify-around items-center w-full flex-col-reverse mob:gap-1 short:flex-row">
-			<div className="flex justify-around items-center w-full h-full mob:w-full">
+			{/* Сетка кнопок с суммами (быстрый добор ставки) */}
+			<div className="flex justify-around items-center w-full h-full mob:w-full gap-1">
 				{amounts.map((amount) => (
 					<button
 						key={amount}
-						className="w-9 h-9 rounded-full text-center bg-blue-900/50 shadow-[1px_1px_3px_rgba(0,0,0,0.3)] font-[600] mob:w-8 mob:h-8 active:shadow-[inset_5px_5px_15px_rgba(0,0,0,0.5)]"
+						className={cn(
+							"w-10 h-10 rounded-full text-center transition-all duration-200 font-black text-[11px] mob:w-8 mob:h-8",
+							"bg-emerald-950/40 border border-emerald-500/20 text-emerald-400", // Наш новый стиль
+							"shadow-[0_0_10px_rgba(16,185,129,0.1)] hover:bg-emerald-500 hover:text-black hover:shadow-[0_0_15px_rgba(16,185,129,0.4)]",
+							"active:scale-90"
+						)}
 						onClick={() => {
 							setBetAmount(Math.min((((betAmount * 1000) + (amount * 1000)) / 1000), maxBet))
 						}}
@@ -97,16 +102,18 @@ const AddAmount: React.FC<AddAmountProps> = ({ setBetAmount, index }) => {
 					</button>
 				))}
 			</div>
-			<div className="flex justify-around items-center w-full">
+
+			{/* Блок Авто-выплаты (Cashout) и Авто-беттинга */}
+			<div className="flex justify-around items-center w-full py-1 px-2 rounded-xl bg-emerald-500/5 border border-emerald-500/10 mb-2 short:mb-0">
 				{!!isAutoBetCount ? (
 					<>
 						{isMobile ? (
 							<span
 								onClick={handleInputClick}
 								className={cn(
-									'w-1/2 text-center bet-input bg-transparent font-bold cursor-pointer',
+									'w-1/2 text-center font-black text-emerald-400 cursor-pointer text-lg tracking-tighter',
 									{
-										'text-gray-500': !cashOutValue,
+										'text-emerald-900': !cashOutValue,
 									},
 								)}
 							>
@@ -115,7 +122,7 @@ const AddAmount: React.FC<AddAmountProps> = ({ setBetAmount, index }) => {
 						) : (
 							<div
 								onClick={() => inputRef.current?.focus()}
-								className="flex justify-center items-center w-1/2 h-6"
+								className="flex justify-center items-center w-1/2 h-8"
 							>
 								<input
 									onBlur={() => {
@@ -133,18 +140,19 @@ const AddAmount: React.FC<AddAmountProps> = ({ setBetAmount, index }) => {
 									style={{
 										width: `min(${(cashOutValue || '1.01x').toString().length}ch, 100%)`,
 									}}
-									className="h-6 text-end font-bold bg-transparent p-0"
+									className="h-full text-end font-black bg-transparent p-0 text-emerald-400 text-lg outline-none cursor-pointer"
 								/>
-								{!!cashOutValue && <span className="font-bold right-0">x</span>}
+								{!!cashOutValue && <span className="font-black text-emerald-400 ml-0.5 text-lg">x</span>}
 							</div>
 						)}
 					</>
 				) : (
-					<span className="font-bold text-center text-nowrap mob:text-left short:text-wrap">
+					<span className="font-black text-[10px] uppercase tracking-widest text-emerald-500/50 text-center text-nowrap mob:text-left short:text-wrap">
 						{t('autoplay')}
 					</span>
 				)}
-				<div className="relative flex justify-end items-center h-6">
+
+				<div className="relative flex justify-end items-center h-8 ml-2">
 					<AutoBet index={index} />
 				</div>
 			</div>

@@ -7,6 +7,7 @@ import { useUrlParams } from './hooks/useUrlParams';
 import { useT } from './lang';
 import Desktop from './components/Desktop';
 import Mobile from './components/Mobile';
+import GameLoading from './components/GameLoading';
 
 const App: React.FC = () => {
 	useSocketListener();
@@ -24,8 +25,8 @@ const App: React.FC = () => {
 
 	return (
 
-		<div style={{ height: '100%' }} >
-			{/* <GameLoading /> */}
+		<div className='h-full' >
+			<GameLoading />
 
 			<Suspense >
 				<Device />

@@ -17,7 +17,7 @@ import {
 
 const InfoComponents: React.FC = () => {
 	const { t } = useT();
-	const dispatch = useDispatch(); 
+	const dispatch = useDispatch();
 	const { isMobile } = useSelector(selectSettings);
 
 	const { musicVolume, soundVolume, gameVolume, isMobileMenu, overall } =
@@ -74,23 +74,31 @@ const InfoComponents: React.FC = () => {
 
 	return (
 		<div
-			className={
-				cn('absolute top-0 right-0 z-20 w-[28%] flex flex-col items-center gap-2 p-2 h-[calc(100%-30px)] bg-gray-950/60', {'mob:hidden': isMobile })
-			}
+			className={cn(
+				'absolute top-0 right-0 z-20 w-[28%] flex flex-col items-center gap-3 p-3 h-[calc(100%-30px)]',
+				'bg-[#050a09]/90 backdrop-blur-md border-l border-emerald-500/10 shadow-[-10px_0_30px_rgba(0,0,0,0.5)]',
+				{ 'mob:hidden': isMobile }
+			)}
 		>
-			<div className="flex justify-between items-center w-full h-11 bg-sky-950/50 shadow-[inset_0_0_20px_rgba(23,100,250,0.3)] px-4 rounded-lg font-[600] short:text-3.5 short:h-7">
+			{/* Верхняя панель: Имя стола и Настройки */}
+			<div className="flex justify-between items-center w-full h-11 bg-emerald-500/5 border border-emerald-500/10 px-4 rounded-xl font-black text-[12px] tracking-widest uppercase text-emerald-500/80">
 				<span>{tableName}</span>
-				<div className="flex justify-around items-center gap-1">
+				<div className="flex justify-around items-center gap-2">
 					{menuItems.map((item, index) => (
 						<button
 							key={index}
 							onClick={item.action}
-							className="flex justify-center items-center p-2 bg-gray-950/50 rounded-lg hover:opacity-100 hover:bg-blue-500 short:p-1"
+							className={cn(
+								"flex justify-center items-center p-2 rounded-lg transition-all duration-200",
+								"bg-emerald-950/40 border border-emerald-500/10 hover:bg-emerald-500 hover:text-black",
+								{ "text-emerald-400": item.isActive, "text-gray-500": !item.isActive }
+							)}
 						>
 							<img
 								src={`/icons/${item.isActive ? item.iconActive : item.iconInactive}.svg`}
 								alt={item.iconActive}
-								className="w-5 h-5 short:w-4 short:h-4"
+								className={cn("w-4 h-4 transition-all", { "brightness-0": item.isActive })}
+								style={{ filter: item.isActive ? 'drop-shadow(0 0 5px rgba(16,185,129,0.5))' : 'none' }}
 							/>
 						</button>
 					))}
@@ -101,32 +109,38 @@ const InfoComponents: React.FC = () => {
 				<InfoComponentsMenu />
 			) : (
 				<>
-					<div className="flex justify-around items-center w-full h-11 overflow-hidden bg-sky-950/40 shadow-[inset_0_0_20px_rgba(23,100,250,0.3)] rounded-lg short:top-[45px] short:px-0.5 short:right-[3px] short:text-3.5 short:h-[34px] short:leading-none">
+					{/* Переключатель вкладок (Tabs) */}
+					<div className="flex justify-around items-center w-full h-10 p-1 bg-emerald-950/40 border border-emerald-500/10 rounded-xl">
 						{allWindows.map((w) => (
 							<button
 								key={w.type}
 								onClick={() => setWindow(w.type)}
 								className={cn(
-									'flex justify-center items-center h-full text-left px-1 w-1/3 rounded-lg font-[500] hover:text-gray-300',
-									{
-										'buttonAnimation shadow-[0_0_3px_rgba(0,0,0,0.3)]': window === w.type,
-									},
+									'flex justify-center items-center h-full text-center px-1 w-1/3 rounded-lg text-[11px] font-black uppercase tracking-tight transition-all duration-300',
+									window === w.type
+										? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.3)]'
+										: 'text-emerald-500/50 hover:text-emerald-400'
 								)}
 							>
-								<span className="overflow-hidden text-ellipsis leading-[1.2rem]">{w.name}</span>
+								{w.name}
 							</button>
 						))}
 					</div>
-					<div className="flex flex-col w-full flex-1 overflow-hidden bg-sky-950/50 shadow-[inset_0_0_20px_rgba(23,100,250,0.3)] rounded-lg px-2 py-2 gap-2 short:px-0.5 short:py-0.5 short:top-[85px] short:gap-0.5 short:right-[3px]">
-						<div className="flex justify-between items-center w-full h-8 px-2 bg-transparent short:px-0.5 short:h-7">
-							<div className="flex justify-center items-center gap-1 font-[600] short:text-3.5">
-								{t('all_bets')}:<span className="text-blue-500 font-[500]">{allBets.length}</span>
+
+					{/* Контент вкладок */}
+					<div className="flex flex-col w-full flex-1 overflow-hidden bg-emerald-950/20 rounded-2xl border border-emerald-500/10 p-2 gap-2">
+						{/* Статистика раунда */}
+						<div className="flex justify-between items-center w-full h-8 px-2">
+							<div className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+								{t('all_bets')}: <span className="text-emerald-400 ml-1">{allBets.length}</span>
 							</div>
-							<div className="flex justify-center items-center gap-1 font-[600] short:text-3.5">
-								{t('round')}:<span className="text-blue-500 font-[500]">#{roundId}</span>
+							<div className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+								{t('round')}: <span className="text-emerald-400 ml-1">#{roundId}</span>
 							</div>
 						</div>
-						<div className="flex flex-col pr-1 items-center w-full h-full bg-gray-950/40 border border-gray-950/50 rounded-lg overflow-hidden short:p-0.5">
+
+						{/* Список ставок */}
+						<div className="flex flex-col items-center w-full h-full bg-[#050a09]/40 border border-emerald-500/5 rounded-xl overflow-hidden">
 							{switchWindow(window)}
 						</div>
 					</div>

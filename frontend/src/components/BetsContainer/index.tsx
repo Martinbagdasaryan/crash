@@ -12,13 +12,11 @@ import { setBalanceCalc } from '../../redux/selects/players';
 import { SEND_ACTIONS } from '../../api/connnectionEnum';
 import { setIsBettingRoundId, setWindowInfo } from '../../redux/selects/settings';
 
-
 const BetsContainer: React.FC = () => {
-
 	const socket = useSocket();
 	const dispatch = useDispatch();
 	const { isMobile } = useSelector(selectSettings);
-	
+
 	const { state, roundId, bets } = useSelector(selectGame);
 	const { playerId, token } = useUrlParams();
 	const { maxBet, minBet, balance } = useSelector(selectPlayer);
@@ -88,15 +86,23 @@ const BetsContainer: React.FC = () => {
 		}
 	}, [contener[0].isBettingRoundId, contener[1].isBettingRoundId, state]);
 
-	
+
 
 	return (
-		<div className="absolute flex justify-center items-center z-20 bottom-[20px] w-full short:bottom-5">
-			<div className={cn("flex justify-between items-center p-4 gap-2 rounded-2xl border border-gray-950/50 bg-blue-950/80 shadow-[inset_0_0_20px_rgba(23,100,250,0.3)] w-[44%] rounded-b-none", {
-				' mob:rounded-t-2xl mob:p-2 mob:gap-1 mob:w-full': isMobile
-			})}>
+		<div className="absolute flex justify-center items-center z-10 bottom-[30px] w-full pointer-events-none">
+			<div className={cn(
+				"flex justify-between items-center p-4 gap-4 w-[44%] pointer-events-auto transition-all duration-500",
+				"bg-[#050a09]/90 backdrop-blur-xl border-t border-x border-emerald-500/20",
+				"shadow-[0_-10px_40px_rgba(0,0,0,0.6)] rounded-t-[2.5rem]",
+				{
+					'mob:rounded-t-3xl mob:p-2 mob:gap-2 mob:w-full': isMobile,
+				}
+			)}>
+
 				{Array.from({ length: 2 }).map((_, i) => (
-					<BetsWindow key={i} index={i} />
+					<div key={i} className="flex-1">
+						<BetsWindow index={i} />
+					</div>
 				))}
 			</div>
 		</div>

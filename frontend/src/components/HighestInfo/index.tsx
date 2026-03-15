@@ -9,50 +9,55 @@ const HighestInfo = () => {
     const { isMobile } = useSelector(selectSettings);
 
     const highestData = [
-        { createdAt: new Date(), odds: '2.5' },
-        { createdAt: new Date(), odds: '3.0' },
-        { createdAt: new Date(), odds: '1.8' },
-        { createdAt: new Date(), odds: '4.2' },
-        { createdAt: new Date(), odds: '2.1' },
+        { createdAt: new Date(), odds: '2.50' },
+        { createdAt: new Date(), odds: '3.12' },
+        { createdAt: new Date(), odds: '1.85' },
+        { createdAt: new Date(), odds: '4.20' },
+        { createdAt: new Date(), odds: '2.10' },
     ];
 
     return (
         <div
-            className={
-                cn('absolute top-0 left-0 z-20 w-[28%] flex flex-col items-center gap-2 p-2 h-[calc(100%-30px)] bg-gray-950/60 border-l border-black', { 'mob:hidden': isMobile })
-            }
+            className={cn(
+                'absolute top-0 left-0 z-20 w-[28%] flex flex-col items-center gap-3 p-3 h-[calc(100%-30px)]',
+                'bg-[#050a09]/80 backdrop-blur-md border-r border-emerald-500/10', // Прозрачный темный фон
+                { 'mob:hidden': isMobile }
+            )}
         >
-            <div className="flex justify-around items-center w-full h-11 overflow-hidden bg-sky-950/40 shadow-[inset_0_0_20px_rgba(23,100,250,0.3)] rounded-lg">
-                <div
-                    className={cn(
-                        'flex justify-center items-center h-full text-left px-1 w-full rounded-lg font-[500] hover:text-gray-300',
-
-                    )}
-                >
-                    <span className="overflow-hidden text-ellipsis leading-[1.2rem]">{t('highest')}</span>
+            {/* Заголовок секции */}
+            <div className="flex justify-around items-center w-full h-11 bg-emerald-500/5 border border-emerald-500/20 rounded-xl shadow-[inset_0_0_15px_rgba(16,185,129,0.1)]">
+                <div className="flex justify-center items-center h-full w-full font-black uppercase tracking-widest text-[12px] text-emerald-500">
+                    {t('highest')}
                 </div>
             </div>
-            <div className="flex flex-col w-full flex-1 overflow-hidden bg-sky-950/50 shadow-[inset_0_0_20px_rgba(23,100,250,0.3)] rounded-lg px-2 py-2 gap-2">
 
-                <div className="flex flex-col pr-1 items-center w-full h-full bg-gray-950/40 border border-gray-950/50 rounded-lg overflow-hidden">
+            {/* Контейнер таблицы */}
+            <div className="flex flex-col w-full flex-1 overflow-hidden bg-emerald-950/20 rounded-2xl border border-emerald-500/10 p-1">
+                <div className="flex flex-col items-center w-full h-full rounded-xl overflow-hidden">
 
                     <TableHeader headers={['data', 'coefficient']} />
-                    <div className="w-full overflow-y-scroll h-full flex gap-1 p-1 flex-col">
+
+                    <div className="w-full overflow-y-auto h-full flex gap-1.5 p-1 flex-col custom-scrollbar">
                         {highestData.map((bet, index) => (
                             <div
                                 key={index}
-                                className={
-                                    'flex w-full h-10 bg-gray-800 rounded-lg font-semibold border-transparent border shadow-[inset_0_0_4px_black] justify-between'
-                                }
+                                className={cn(
+                                    'flex w-full min-h-[40px] rounded-lg transition-all duration-200',
+                                    'bg-emerald-500/5 border border-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-500/20',
+                                    'group items-center justify-between px-3'
+                                )}
                             >
-                                <div className="flex justify-center items-center rounded-lg p-4 w-[60%] h-full ">
-                                    <span className="overflow-hidden text-ellipsis text-left">
+                                {/* Дата (Приглушенная) */}
+                                <div className="flex justify-start items-center w-[60%]">
+                                    <span className="text-[11px] font-bold text-slate-500 group-hover:text-slate-300 transition-colors">
                                         {dataFormater(bet.createdAt)}
                                     </span>
                                 </div>
-                                <div className="rounded-lg p-4 w-[40%] h-full flex justify-center items-center">
-                                    <span className="overflow-hidden text-ellipsis text-left">
-                                        {bet.odds ? bet.odds : '-'}
+
+                                {/* Коэффициент (Яркий) */}
+                                <div className="flex justify-end items-center w-[40%]">
+                                    <span className="font-black text-emerald-400 text-[14px] drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
+                                        {bet.odds ? `x${bet.odds}` : '-'}
                                     </span>
                                 </div>
                             </div>

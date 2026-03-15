@@ -12,6 +12,7 @@ import Balance from "../Balance";
 import BettingTime from "../BettingTime";
 import Popup from "../Popup";
 import WinPopup from "../Popup/WinPopup";
+import GameResult from "../GameResult";
 
 const Desktop = () => {
 
@@ -23,7 +24,7 @@ const Desktop = () => {
 
         <div ref={wrapperRef} className='w-full h-full relative overflow-hidden'>
 
-            <div className='bg-blue-800 w-[1366px] h-[768px] absolute top-1/2 left-1/2 overflow-hidden' ref={wrapperContentRef} >
+            <div className='bg-[#050807] w-[1366px] h-[768px] absolute top-1/2 left-1/2 overflow-hidden' ref={wrapperContentRef} >
                 <Click />
                 <ErrorPopup />
                 <Canvas />
@@ -35,6 +36,7 @@ const Desktop = () => {
                 <Balance />
                 <BettingTime />
                 <Popup />
+                <GameResult />
                 <WinPopup />
             </div>
         </div>

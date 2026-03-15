@@ -40,7 +40,7 @@ const BetsWindow: React.FC<IBetsWindowProps> = ({ index }) => {
 	}, [state]);
 
 	return (
-		<div className="flex flex-col gap-4 items-center w-1/2 mob:gap-3 short:gap-1">
+		<div className="flex flex-col gap-4 items-center w-full mob:gap-3 short:gap-1">
 			<BetsAmount index={index} setBetAmount={setBetAmount} />
 			<AddAmount index={index} setBetAmount={setBetAmount} />
 		</div>
