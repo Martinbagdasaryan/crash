@@ -32,7 +32,7 @@ const BettingTime = () => {
 			} else {
 				soundRef.current.volume = soundVolume * overall;
 				if (time > 0) {
-					soundRef.current.play().catch(() => {});
+					soundRef.current.play().catch(() => { });
 				}
 			}
 		};
@@ -47,9 +47,9 @@ const BettingTime = () => {
 	}, [soundVolume, overall, time]);
 
 	return time <= 0 ? null : (
-		<div className="bg-black opacity-50 w-full h-full z-10 relative">
+		<div className="bg-black opacity-95 w-full h-full z-10 absolute top-0">
 			<audio ref={soundRef} src="/audio/timer.wav" preload="auto" loop />
-			<div className="relative top-0 left-0 flex justify-center items-center pointer-events-none w-[70%] h-[calc(100%_-_30px)] short:w-[75%] tab:w-[60%] tab:h-[calc(100%_-_60px)] mob:w-full mob:h-[calc(100%_-_220px)] short:h-full">
+			<div className="relative top-0 left-0 flex justify-center items-center pointer-events-none w-full h-full">
 				<div
 					key={bettingTime}
 					className="h-[120px] w-[120px] shadow-[inset_-7px_-20px_39px_rgba(0,0,0,1)] rounded-full"

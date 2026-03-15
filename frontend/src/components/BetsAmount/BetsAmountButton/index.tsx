@@ -145,7 +145,7 @@ const BetsAmountButton: React.FC<BetsAmountButtonProps> = ({ index }) => {
 			onClick={onClick}
 			disabled={isDisabled}
 			className={cn(
-				'buttonAnimation flex justify-center items-center w-full min-w-36 h-14 rounded-lg shadow-[0_0_3px_rgba(0,0,0,0.3)] font-[600] leading-none mob:h-9 short:h-8',
+				'buttonAnimation flex justify-center items-center w-full min-w-36 rounded-lg shadow-[0_0_3px_rgba(0,0,0,0.3)] font-[600] leading-none h-9',
 				{
 					bet: (!!userBet?.amount && !userBet?.win) || !!isBettingRoundId,
 					win: isCashOut,

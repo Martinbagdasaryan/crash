@@ -30,7 +30,7 @@ export default {
 			//@media max-width
 			desktop: { min: '1111px' },
 			tab: { max: '1110px' },
-			mob: { max: '960px' },
+			mob: { max: '767px' },
 
 			short: { raw: '(max-height: 492px)' },
 		},

@@ -17,7 +17,8 @@ import {
 
 const InfoComponents: React.FC = () => {
 	const { t } = useT();
-	const dispatch = useDispatch();
+	const dispatch = useDispatch(); 
+	const { isMobile } = useSelector(selectSettings);
 
 	const { musicVolume, soundVolume, gameVolume, isMobileMenu, overall } =
 		useSelector(selectSettings);
@@ -74,7 +75,7 @@ const InfoComponents: React.FC = () => {
 	return (
 		<div
 			className={
-				'absolute top-0 right-0 z-20 w-[30%] flex flex-col items-center gap-2 p-2 h-[calc(100%-30px)] bg-gray-950/60 border-l border-black tab:w-[40%] tab:h-[calc(100%-171px)] mob:hidden short:flex duration-150 short:h-[calc(100%-20px)] short:tab:h-[calc(100%-109px)] short:mob:h-[calc(100%-116px)] short:p-1 short:gap-1'
+				cn('absolute top-0 right-0 z-20 w-[28%] flex flex-col items-center gap-2 p-2 h-[calc(100%-30px)] bg-gray-950/60', {'mob:hidden': isMobile })
 			}
 		>
 			<div className="flex justify-between items-center w-full h-11 bg-sky-950/50 shadow-[inset_0_0_20px_rgba(23,100,250,0.3)] px-4 rounded-lg font-[600] short:text-3.5 short:h-7">

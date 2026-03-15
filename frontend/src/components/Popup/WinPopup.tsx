@@ -30,7 +30,7 @@ const WinPopup = () => {
 		.map((info) => (
 			<div
 				key={info.index}
-				className={cn('absolute top-2 left-0 flex justify-center w-[75%] h-fit z-50 mob:w-full', {
+				className={cn('absolute top-2 left-0 flex justify-center w-full h-fit z-50', {
 					'top-20 short:top-[60px]': info.index === 1 && !!windowInfo[0].winAmount,
 				})}
 			>

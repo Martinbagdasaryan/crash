@@ -83,8 +83,8 @@ const AddAmount: React.FC<AddAmountProps> = ({ setBetAmount, index }) => {
 	}, [cashOut]);
 
 	return (
-		<div className="flex justify-around items-center w-full mob:flex-col-reverse mob:gap-1 short:flex-row">
-			<div className="flex justify-around items-center w-1/2 h-full mob:w-full">
+		<div className="flex justify-around items-center w-full flex-col-reverse mob:gap-1 short:flex-row">
+			<div className="flex justify-around items-center w-full h-full mob:w-full">
 				{amounts.map((amount) => (
 					<button
 						key={amount}
@@ -97,7 +97,7 @@ const AddAmount: React.FC<AddAmountProps> = ({ setBetAmount, index }) => {
 					</button>
 				))}
 			</div>
-			<div className="flex justify-around items-center w-1/2 mob:w-full">
+			<div className="flex justify-around items-center w-full">
 				{!!isAutoBetCount ? (
 					<>
 						{isMobile ? (

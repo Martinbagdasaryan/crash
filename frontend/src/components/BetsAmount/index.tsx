@@ -76,9 +76,9 @@ const BetsAmount: React.FC<BetsAmountProps> = ({ index, setBetAmount }) => {
 	}, [amount]);
 
 	return (
-		<div className="flex items-center justify-center gap-1 w-full mob:flex-col short:mob:flex-row">
+		<div className="flex items-center justify-center gap-1 w-full flex-col">
 			<div
-				className="relative flex justify-center items-center h-14 gap-1 w-full rounded-lg cursor-pointer bg-sky-900/40 shadow-[0_0_3px_rgba(0,0,0,0.3)] group mob:h-9 short:h-8"
+				className="relative flex justify-center items-center gap-1 w-full rounded-lg cursor-pointer bg-sky-900/40 shadow-[0_0_3px_rgba(0,0,0,0.3)] group h-9"
 				onClick={handleInputClick}
 			>
 				<span
