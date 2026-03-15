@@ -8,6 +8,7 @@ import { useT } from './lang';
 import Desktop from './components/Desktop';
 import Mobile from './components/Mobile';
 import GameLoading from './components/GameLoading';
+import OrientationLock from './components/OrientationLock';
 
 const App: React.FC = () => {
 	useSocketListener();
@@ -27,7 +28,7 @@ const App: React.FC = () => {
 
 		<div className='h-full' >
 			<GameLoading />
-
+			<OrientationLock />
 			<Suspense >
 				<Device />
 			</Suspense>

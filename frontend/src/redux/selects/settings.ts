@@ -12,6 +12,7 @@ const initialState: Settings = {
 	isMobileMenu: false,
 	isMenuOpen: false,
 	isMobile: false,
+	isLandscept: false,
 	isKeybordOpen: false,
 	isSocketConnected: false,
 	musicVolume: 0.05,
@@ -98,6 +99,9 @@ export const settingsSlice = createSlice({
 		setIsMobile: (state, action: PayloadAction<boolean>) => {
 			state.isMobile = action.payload;
 		},
+		setIsLandscept: (state, action: PayloadAction<boolean>) => {
+			state.isLandscept = action.payload;
+		},
 		setPopupType: (state, action: PayloadAction<POPUP_TYPE | null>) => {
 			state.popupType = action.payload;
 		},
@@ -134,6 +138,7 @@ export const {
 	setWindowInfo,
 	setIsSocketConnected,
 	setIsMobile,
+	setIsLandscept,
 	setPopupType,
 	setPopupIndex,
 	setProvablyFair,

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { setIsMobile } from '../redux/selects/settings';
+import { setIsLandscept, setIsMobile } from '../redux/selects/settings';
 import { useDispatch } from 'react-redux';
 
 const useSizes = () => {
@@ -8,6 +8,7 @@ const useSizes = () => {
 		const handleResize = () => {
 			const mobile = window.innerWidth < 768 || window.innerHeight < 492;
 			dispatch(setIsMobile(mobile));
+			dispatch(setIsLandscept(window.innerHeight < 492));
 		};
 
 		handleResize();

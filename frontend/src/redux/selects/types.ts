@@ -29,6 +29,7 @@ export interface Settings {
 	isMenuOpen: boolean;
 	isKeybordOpen: boolean;
 	isMobile: boolean;
+	isLandscept: boolean;
 	isSocketConnected: boolean;
 	musicVolume: number;
 	overall: number;
