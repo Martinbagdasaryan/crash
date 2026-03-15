@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	outline: none;
+}
+
+html,
+body,
+#root {
+	height: 100%;
+	scrollbar-width: none;
+	touch-action: manipulation;
+}
+
+body {
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	overflow: hidden;
+	position: relative;
+	user-select: none;
+	color: white;
+}
+
+html,
+body {
+	-webkit-text-size-adjust: 100%;
+	touch-action: manipulation;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #222731;
+	border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #57575a;
+	border-radius: 8px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+	appearance: textfield;
+	-moz-appearance: textfield;
+}
+
+.buttonAnimation {
+	background: linear-gradient(105deg,
+			rgb(7, 89, 133) 10%,
+			rgb(59, 130, 246) 25%,
+			rgb(7, 89, 133) 40%,
+			rgb(7, 89, 133) 60%,
+			rgb(59, 130, 246) 75%,
+			rgb(7, 89, 133) 90%);
+	background-size: 200% 200%;
+	animation: rainbow 2s linear infinite;
+}
+
+.bet {
+	background: linear-gradient(105deg,
+			#e79a5c 10%,
+			#fa7d16 25%,
+			#e79a5c 40%,
+			#e79a5c 60%,
+			#fa7d16 75%,
+			#e79a5c 90%);
+	background-size: 200% 200%;
+	animation: rainbow 2s linear infinite;
+}
+
+.win {
+	background: linear-gradient(105deg,
+			#5eff00 10%,
+			#008f00 25%,
+			#5eff00 40%,
+			#5eff00 60%,
+			#008f00 75%,
+			#5eff00 90%);
+	background-size: 200% 200%;
+	animation: rainbow 2s linear infinite;
+}
+
+@keyframes rainbow {
+	0% {
+		background-position: 100% 100%;
+	}
+
+	100% {
+		background-position: 0% 0%;
+	}
+}

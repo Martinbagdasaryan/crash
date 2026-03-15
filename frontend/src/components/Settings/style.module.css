@@ -1,0 +1,18 @@
+.select {
+	background-color: rgba(55, 65, 81, 0.7) !important;
+	outline: none;
+	width: 100%;
+	padding-inline: 0.62rem;
+	width: 7.5rem;
+	cursor: pointer;
+	align-items: center;
+
+	&,
+	&::picker(select) {
+		appearance: base-select;
+		border-radius: 0.75rem;
+		background-color: rgba(55, 65, 81, 0.7);
+		border-color: rgba(0, 0, 0, 0.4);
+		color: white;
+	}
+}

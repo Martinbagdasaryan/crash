@@ -1,0 +1,57 @@
+{
+  "name": "aviadream-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A simple React application built with Vite",
+  "homepage": "https://github.com/Martinbagdasaryan/crash#readme",
+  "bugs": {
+    "url": "https://github.com/Martinbagdasaryan/crash/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Martinbagdasaryan/crash.git"
+  },
+  "license": "ISC",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "prettierFix": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css}\""
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
+    "@types/react-dom": "^19.2.3",
+    "axios": "^1.13.2",
+    "clsx": "^2.1.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-redux": "^9.2.0",
+    "socket.io-client": "^4.8.3",
+    "tailwind-merge": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@vitejs/plugin-react-swc": "^4.2.2",
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.4.31",
+    "postcss-nesting": "^13.0.2",
+    "prettier": "^3.7.4",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+.timer-section {
+	width: 120px;
+	height: 120px;
+	border-radius: 100%;
+	animation-name: timer-animation;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+	--_m: conic-gradient(#0000 -6%, #000), linear-gradient(#000 0 0) content-box;
+	mask: var(--_m);
+
+	-webkit-mask-composite: source-out;
+	mask-composite: subtract;
+
+	@media (max-width: 554px) {
+		width: 90px;
+		height: 90px;
+	}
+}
+
+.timer-number-section {
+	animation: timer-number-animation 1s infinite linear;
+}
+
+.animationElement {
+	animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+	to {
+		transform: rotate(1turn);
+	}
+}
+
+@keyframes timer-animation {
+	0% {
+		border: 12px solid #2dac00;
+	}
+
+	30% {
+		border: 12px solid yellow;
+	}
+
+	100% {
+		border: 12px solid red;
+	}
+}
+
+@keyframes timer-number-animation {
+	0% {
+		transform: scale(0.8);
+	}
+	20% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1);
+	}
+	90% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0.8);
+	}
+}
