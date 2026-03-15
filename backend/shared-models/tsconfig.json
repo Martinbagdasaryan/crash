@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "ES2020",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"types": ["node"],
+		"resolveJsonModule": true,
+		"outDir": "build",
+		"strict": true,
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*", "models", ".env"]
+}

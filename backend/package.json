@@ -1,0 +1,43 @@
+{
+  "name": "aviadream-backend",
+  "version": "1.0.0",
+  "description": "Node.js приложение на TypeScript с WebSocket и MySQL.",
+  "homepage": "https://github.com/Martinbagdasaryan/AviaDream#readme",
+  "bugs": {
+    "url": "https://github.com/Martinbagdasaryan/AviaDream/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Martinbagdasaryan/AviaDream.git"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "start": "node -r dotenv/config -r tsconfig-paths/register build/src/index.js",
+    "dev": "ts-node -r dotenv/config -r tsconfig-paths/register src/index.ts",
+    "prettierFix": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css}\"",
+    "postinstall": "git submodule update --init --recursive --remote && git config --local submodule.recurse true"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7",
+    "socket.io": "^4.8.3",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "prettier": "^3.7.4",
+    "tsc-alias": "^1.8.16"
+  }
+}

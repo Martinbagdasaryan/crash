@@ -1,0 +1,25 @@
+# dependencies
+node_modules
+
+# production build
+/frontend/build
+/frontend/dist
+/backend/build
+/backend/dist
+
+# misc
+.DS_Store
+Thumbs.db
+
+# local env files
+.env
+.env.local
+.env.*.local
+
+# log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn-lock
+yarn.lock
+pnpm-debug.log*

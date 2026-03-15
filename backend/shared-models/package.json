@@ -1,0 +1,26 @@
+{
+  "name": "shared-models",
+  "version": "1.0.0",
+  "description": "database structure for casino games launcher",
+  "homepage": "https://github.com/ErikArabyan/shared-models#readme",
+  "bugs": {
+    "url": "https://github.com/ErikArabyan/shared-models/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErikArabyan/shared-models.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "migrate": "ts-node -r dotenv/config src/migrate.ts",
+    "seed": "npx sequelize-cli db:seed:all"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
+  }
+}
