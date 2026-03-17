@@ -1,6 +1,6 @@
 export const bettingTime = 5000;
 
-export const profitability = 0.2;
+export const profitability = 0.4;
 
 export const maskNumber = (num: number | string, visibleStart = 1, visibleEnd = 1): string => {
 	const str = String(num);
