@@ -66,7 +66,7 @@ export const onConnection = async (
 			});
 
 			const rate = currency?.rate || 1;
-			
+
 
 			const playerData = {
 				id: playerInfo.data.id,
@@ -88,10 +88,16 @@ export const onConnection = async (
 				bettingTime: 0,
 			};
 
+			const maxRounds = await RoundService.getMaxCoefficientesRound();
+
+			io.emit(SEND_ACTIONS.HighestData, maxRounds);
+
 			io.to(socket.id).emit(SEND_ACTIONS.Game, state);
 			connectedSockets.set(data.playerId, socket.id);
 
 			io.to(socket.id).emit(SEND_ACTIONS.Player, playerData);
+
+
 
 			BetServices.getLeaderBoard();
 

@@ -11,6 +11,15 @@ export class RoundService {
 		return round;
 	};
 
+	private static getMaxCoefficientRound = async () => {
+		const rounds = await DBInterface.all(Round, {
+			sort: [['coeficient', 'DESC']],
+			limit: 20,
+		});
+
+		return rounds;
+	};
+
 	public static getRounds = async () => {
 		const rounds = (await this.getRound(40, 1)).map((round) => {
 			return round?.coeficient;
@@ -26,5 +35,10 @@ export class RoundService {
 	static nextRound = async () => {
 		const round = await this.getRound(1);
 		return round[0];
+	};
+
+	public static getMaxCoefficientesRound = async () => {
+		const rounds = await this.getMaxCoefficientRound();
+		return rounds
 	};
 }

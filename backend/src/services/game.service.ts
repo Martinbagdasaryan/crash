@@ -152,9 +152,13 @@ class Game {
 		await new Promise((res) => setTimeout(res, 2000));
 
 		const rounds = await RoundService.getRounds();
-		BetServices.getLeaderBoard();
 
+		BetServices.getLeaderBoard();
+		
 		io.emit(SEND_ACTIONS.Rounds, rounds);
+		
+		const maxRounds = await RoundService.getMaxCoefficientesRound();
+		io.emit(SEND_ACTIONS.HighestData, maxRounds);
 
 		this.multi = 1.0;
 		io.emit(SEND_ACTIONS.Coeficient, { value: 0 });

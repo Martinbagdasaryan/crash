@@ -316,7 +316,6 @@ export class BetServices {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		};
-		console.log(bets.balance, 'bets.balance');
 
 		io.to(connectedSockets.get(String(bets?.playerId))!).emit(SEND_ACTIONS.Balance, {
 			balane: bets.balance,

@@ -102,6 +102,7 @@ export class PlayerServices {
 				socketId: undefined,
 			},
 		);
+
 		return user;
 	};
 }

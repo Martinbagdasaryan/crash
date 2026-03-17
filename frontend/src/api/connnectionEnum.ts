@@ -13,6 +13,7 @@ export enum GET_ACTIONS {
 	WinAmount = 'winAmount',
 	leaderBoard = 'leaderBoard',
 	Balance = 'balance',
+	HighestData = 'highestData'
 }
 
 export enum SEND_ACTIONS {

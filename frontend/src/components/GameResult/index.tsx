@@ -7,7 +7,6 @@ const GameResult = () => {
     const { coeficient } = useSelector(selectCoeficient);
     const { state } = useSelector(selectGame);
     const [isOpen, setIsOpen] = useState(false);
-    console.log(state, state === GAME_STATE.RoundEnded);
 
     useEffect(() => {
         if (state === GAME_STATE.RoundEnded) {

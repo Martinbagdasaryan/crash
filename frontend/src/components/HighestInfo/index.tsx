@@ -3,18 +3,25 @@ import { useT } from "../../lang";
 import { selectSettings } from "../../redux/selector";
 import { cn, dataFormater } from "../../utils/helper"
 import TableHeader from "../TableHeader";
+import { useEffect, useState } from "react";
+import { GET_ACTIONS } from "../../api/connnectionEnum";
+import { useSocket } from "../../socket/SocketContext";
 
 const HighestInfo = () => {
     const { t } = useT();
     const { isMobile } = useSelector(selectSettings);
+    const [highestData, setHighestData] = useState<{ createdAt: Date, coeficient: number }[]>([])
 
-    const highestData = [
-        { createdAt: new Date(), odds: '2.50' },
-        { createdAt: new Date(), odds: '3.12' },
-        { createdAt: new Date(), odds: '1.85' },
-        { createdAt: new Date(), odds: '4.20' },
-        { createdAt: new Date(), odds: '2.10' },
-    ];
+    const socket = useSocket();
+
+    useEffect(() => {
+        if (!socket) return;
+        socket.on(GET_ACTIONS.HighestData, setHighestData);
+        return () => {
+            socket.off(GET_ACTIONS.HighestData, setHighestData);
+        };
+    }, [socket]);
+
 
     return (
         <div
@@ -47,17 +54,15 @@ const HighestInfo = () => {
                                     'group items-center justify-between px-3'
                                 )}
                             >
-                                {/* Дата (Приглушенная) */}
                                 <div className="flex justify-start items-center w-[60%]">
                                     <span className="text-[11px] font-bold text-slate-500 group-hover:text-slate-300 transition-colors">
                                         {dataFormater(bet.createdAt)}
                                     </span>
                                 </div>
 
-                                {/* Коэффициент (Яркий) */}
                                 <div className="flex justify-end items-center w-[40%]">
                                     <span className="font-black text-emerald-400 text-[14px] drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
-                                        {bet.odds ? `x${bet.odds}` : '-'}
+                                        {bet.coeficient ? `x${bet.coeficient}` : '-'}
                                     </span>
                                 </div>
                             </div>
