@@ -40,6 +40,11 @@ export const onConnection = async (
 				return;
 			}
 
+			if (data.gameId !== process.env.GAME_ID) {
+				ErrorSender.sendError(ERROR_TYPES.PlayerNotFound, socket.id);
+				return;
+			}
+
 			let playerInfo: { data: authentication } | null = null;
 			try {
 				playerInfo = await axios.post(

@@ -138,7 +138,7 @@ class Game {
 
 		await DBInterface.update(
 			Round,
-			{ id: roundId, gameId: 1 },
+			{ id: roundId, gameId: +process.env.GAME_ID! },
 			{
 				state: GAME_STATE.RoundEnded,
 				updatedAt: new Date(),
@@ -154,9 +154,9 @@ class Game {
 		const rounds = await RoundService.getRounds();
 
 		BetServices.getLeaderBoard();
-		
+
 		io.emit(SEND_ACTIONS.Rounds, rounds);
-		
+
 		const maxRounds = await RoundService.getMaxCoefficientesRound();
 		io.emit(SEND_ACTIONS.HighestData, maxRounds);
 
@@ -260,7 +260,7 @@ class Game {
 		Game.SendGameAction(roundId, GAME_STATE.RoundStart);
 
 		await DBInterface.create(Round, {
-			gameId: 1,
+			gameId: +process.env.GAME_ID!,
 			serverSeed: serverSeed,
 			coeficient: round.multiplier,
 			SHA256Hash: first13,
@@ -278,11 +278,7 @@ class Game {
 	}
 
 	private async startRound() {
-		const rounds = await DBInterface.all(Round, {
-			limit: 2,
-			sort: [['id', 'DESC']],
-		});
-		const round = rounds[1];
+		const round = await RoundService.lastRound();
 
 		if (round) {
 			Game.SendGameAction(round.id, GAME_STATE.WaitingInRoundStart, 0);

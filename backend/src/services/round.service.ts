@@ -5,6 +5,7 @@ export class RoundService {
 	private static getRound = async (limit: number, offset = 0) => {
 		const round = await DBInterface.all(Round, {
 			sort: [['id', 'DESC']],
+			conditions: { "gameId": +process.env.GAME_ID! },
 			limit,
 			offset,
 		});
