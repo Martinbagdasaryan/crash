@@ -30,8 +30,8 @@ initSocket(server);
 const start = async () => {
 	try {
 		await setDbConnection();
-		server.listen(8100, '0.0.0.0', () => {
-			console.log('🚀 Server running on http://localhost:8100');
+		server.listen(8250, '0.0.0.0', () => {
+			console.log('🚀 Server running on http://localhost:8250');
 		});
 	} catch (err) {
 		console.error('❌ DB error:', err);
