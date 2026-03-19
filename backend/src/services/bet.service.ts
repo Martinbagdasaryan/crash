@@ -109,7 +109,7 @@ export class BetServices {
 					token: bet.sessionId,
 					userId: bet.playerId,
 					transactionId: bet.id,
-					gameId: GAME_ID.AviaDream,
+					gameId: +process.env.GAME_ID!,
 					roundId: bet.roundId,
 					amount: winAmount,
 				},
@@ -245,12 +245,14 @@ export class BetServices {
 
 	private static getPlayersBetsPrivate = async (playerId: string) => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
-			conditions: { playerId: playerId },
+			include: ['rounds'],
+			conditions: { playerId: playerId, gameId: +process.env.GAME_ID! },
 			limit: 50,
 			sort: [['id', 'DESC']],
 		});
 		return playerBets;
 	};
+
 
 	public static saveAllBets = async () => {
 		const savedBets: BetTypeForServices[] = [];
@@ -265,7 +267,7 @@ export class BetServices {
 						token: bet.token,
 						userId: bet.playerId,
 						transactionId: saveBet.id,
-						gameId: GAME_ID.AviaDream,
+						gameId: +process.env.GAME_ID!,
 						roundId: bet.roundId,
 						amount: bet.amount,
 					},
