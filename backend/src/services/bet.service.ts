@@ -236,6 +236,7 @@ export class BetServices {
 
 	private static getAllBetsPrivate = async () => {
 		const lastRound = await RoundService.lastRound();
+		
 		const allBets = await DBInterface.all(GamesTransactions, {
 			conditions: { roundId: lastRound?.id },
 		});
