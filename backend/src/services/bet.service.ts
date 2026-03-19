@@ -236,7 +236,7 @@ export class BetServices {
 
 	private static getAllBetsPrivate = async () => {
 		const lastRound = await RoundService.lastRound();
-		
+
 		const allBets = await DBInterface.all(GamesTransactions, {
 			conditions: { roundId: lastRound?.id },
 		});
@@ -246,7 +246,7 @@ export class BetServices {
 
 	private static getPlayersBetsPrivate = async (playerId: string) => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
-			include: ['rounds'],
+			include: ['Round'],
 			conditions: { playerId: playerId, gameId: +process.env.GAME_ID! },
 			limit: 50,
 			sort: [['id', 'DESC']],
@@ -332,6 +332,7 @@ export class BetServices {
 	private static getLeader = async () => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
 			limit: 30,
+			include: ['Round'],
 			sort: [['winAmount', 'DESC']],
 		});
 		return playerBets;
