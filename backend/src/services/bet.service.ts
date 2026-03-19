@@ -333,6 +333,7 @@ export class BetServices {
 		const playerBets = await DBInterface.all(GamesTransactions, {
 			limit: 30,
 			include: ['Round'],
+			conditions: { gameId: +process.env.GAME_ID! },
 			sort: [['winAmount', 'DESC']],
 		});
 		return playerBets;
