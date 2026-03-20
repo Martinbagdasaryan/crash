@@ -16,9 +16,7 @@ export class BetServices {
 
 	public static onBets = async (bets: BetType) => {
 		const gameState = Game.gameState;
-		const hasBet = this.betsArray.find(
-			(item) => item.index === bets.index && bets.playerId === item.playerId,
-		);
+		const hasBet = this.betsArray.find((item) => item.index === bets.index && bets.playerId === item.playerId);
 
 		const soketId = connectedSockets.get(String(bets.playerId));
 
@@ -192,9 +190,7 @@ export class BetServices {
 	};
 
 	public static cancelBets = (playerId: number, index: number) => {
-		const newBetsArr = [...this.betsArray].filter(
-			(bet) => bet.index !== index && +bet.playerId === +playerId,
-		);
+		const newBetsArr = [...this.betsArray].filter((bet) => bet.index !== index && +bet.playerId === +playerId);
 
 		this.betsArray = newBetsArr;
 		io.emit(SEND_ACTIONS.Bets, {
@@ -246,14 +242,13 @@ export class BetServices {
 
 	private static getPlayersBetsPrivate = async (playerId: string) => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
-			include: [model: Rounds, where: { gameId: +process.env.GAME_ID! }],
+			include: [{ model: Rounds, where: { gameId: +process.env.GAME_ID! } }],
 			conditions: { playerId: playerId },
 			limit: 50,
 			sort: [['id', 'DESC']],
 		});
 		return playerBets;
 	};
-
 
 	public static saveAllBets = async () => {
 		const savedBets: BetTypeForServices[] = [];
@@ -278,11 +273,7 @@ export class BetServices {
 				);
 
 				if (response.data.status !== 0) {
-					await DBInterface.update(
-						GamesTransactions,
-						{ id: saveBet.id },
-						{ operationType: OperationType.Rollback },
-					);
+					await DBInterface.update(GamesTransactions, { id: saveBet.id }, { operationType: OperationType.Rollback });
 
 					const soketId = connectedSockets.get(String(bet.playerId));
 					await ErrorSender.sendError(ERROR_TYPES.InvalidBetAmount, soketId);
@@ -332,7 +323,7 @@ export class BetServices {
 	private static getLeader = async () => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
 			limit: 30,
-			include: [model: Rounds, where: { gameId: +process.env.GAME_ID! }],
+			include: [{ model: Rounds, where: { gameId: +process.env.GAME_ID! } }],
 			sort: [['winAmount', 'DESC']],
 		});
 		return playerBets;
