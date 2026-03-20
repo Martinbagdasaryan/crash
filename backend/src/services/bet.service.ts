@@ -132,7 +132,6 @@ export class BetServices {
 			);
 		} catch (e) {
 			await ErrorSender.sendError(ERROR_TYPES.CashOutNotAllowed, soketId);
-			log(e);
 			return;
 		}
 
