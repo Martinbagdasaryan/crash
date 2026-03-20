@@ -9,7 +9,7 @@ import { Game } from './game.service';
 import axios from 'axios';
 import GamesTransactions from 'models/gamesTransactions';
 import Players from 'models/players';
-import { log } from 'console';
+import Rounds from 'models/rounds';
 
 export class BetServices {
 	public static betsArray: BetTypeForServices[] = [];
@@ -246,8 +246,8 @@ export class BetServices {
 
 	private static getPlayersBetsPrivate = async (playerId: string) => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
-			include: ['Round'],
-			conditions: { playerId: playerId, gameId: +process.env.GAME_ID! },
+			include: [model: Rounds, where: { gameId: +process.env.GAME_ID! }],
+			conditions: { playerId: playerId },
 			limit: 50,
 			sort: [['id', 'DESC']],
 		});
@@ -332,8 +332,7 @@ export class BetServices {
 	private static getLeader = async () => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
 			limit: 30,
-			include: ['Round'],
-			conditions: { gameId: +process.env.GAME_ID! },
+			include: [model: Rounds, where: { gameId: +process.env.GAME_ID! }],
 			sort: [['winAmount', 'DESC']],
 		});
 		return playerBets;
