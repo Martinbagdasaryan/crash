@@ -9,16 +9,14 @@ import { Game } from './game.service';
 import axios from 'axios';
 import GamesTransactions from 'models/gamesTransactions';
 import Players from 'models/players';
-import { log } from 'console';
+import Rounds from 'models/rounds';
 
 export class BetServices {
 	public static betsArray: BetTypeForServices[] = [];
 
 	public static onBets = async (bets: BetType) => {
 		const gameState = Game.gameState;
-		const hasBet = this.betsArray.find(
-			(item) => item.index === bets.index && bets.playerId === item.playerId,
-		);
+		const hasBet = this.betsArray.find((item) => item.index === bets.index && bets.playerId === item.playerId);
 
 		const soketId = connectedSockets.get(String(bets.playerId));
 
@@ -109,7 +107,7 @@ export class BetServices {
 					token: bet.sessionId,
 					userId: bet.playerId,
 					transactionId: bet.id,
-					gameId: GAME_ID.AviaDream,
+					gameId: +process.env.GAME_ID!,
 					roundId: bet.roundId,
 					amount: winAmount,
 				},
@@ -134,7 +132,6 @@ export class BetServices {
 			);
 		} catch (e) {
 			await ErrorSender.sendError(ERROR_TYPES.CashOutNotAllowed, soketId);
-			log(e);
 			return;
 		}
 
@@ -192,9 +189,7 @@ export class BetServices {
 	};
 
 	public static cancelBets = (playerId: number, index: number) => {
-		const newBetsArr = [...this.betsArray].filter(
-			(bet) => bet.index !== index && +bet.playerId === +playerId,
-		);
+		const newBetsArr = [...this.betsArray].filter((bet) => bet.index !== index && +bet.playerId === +playerId);
 
 		this.betsArray = newBetsArr;
 		io.emit(SEND_ACTIONS.Bets, {
@@ -236,6 +231,7 @@ export class BetServices {
 
 	private static getAllBetsPrivate = async () => {
 		const lastRound = await RoundService.lastRound();
+
 		const allBets = await DBInterface.all(GamesTransactions, {
 			conditions: { roundId: lastRound?.id },
 		});
@@ -245,6 +241,7 @@ export class BetServices {
 
 	private static getPlayersBetsPrivate = async (playerId: string) => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
+			include: [{ model: Rounds, where: { gameId: +process.env.GAME_ID! } }],
 			conditions: { playerId: playerId },
 			limit: 50,
 			sort: [['id', 'DESC']],
@@ -265,7 +262,7 @@ export class BetServices {
 						token: bet.token,
 						userId: bet.playerId,
 						transactionId: saveBet.id,
-						gameId: GAME_ID.AviaDream,
+						gameId: +process.env.GAME_ID!,
 						roundId: bet.roundId,
 						amount: bet.amount,
 					},
@@ -275,11 +272,7 @@ export class BetServices {
 				);
 
 				if (response.data.status !== 0) {
-					await DBInterface.update(
-						GamesTransactions,
-						{ id: saveBet.id },
-						{ operationType: OperationType.Rollback },
-					);
+					await DBInterface.update(GamesTransactions, { id: saveBet.id }, { operationType: OperationType.Rollback });
 
 					const soketId = connectedSockets.get(String(bet.playerId));
 					await ErrorSender.sendError(ERROR_TYPES.InvalidBetAmount, soketId);
@@ -329,6 +322,7 @@ export class BetServices {
 	private static getLeader = async () => {
 		const playerBets = await DBInterface.all(GamesTransactions, {
 			limit: 30,
+			include: [{ model: Rounds, where: { gameId: +process.env.GAME_ID! } }],
 			sort: [['winAmount', 'DESC']],
 		});
 		return playerBets;
