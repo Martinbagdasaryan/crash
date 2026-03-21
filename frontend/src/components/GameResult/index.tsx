@@ -32,7 +32,7 @@ const GameResult = () => {
                 <div className="absolute h-4/5 w-4/5 rounded-[55%_45%_40%_60%] bg-emerald-800/70 blur-xl opacity-95 transform-gpu animate-blobSlow3"></div>
 
                 <button onClick={() => setIsOpen(false)} className="absolute -top-4 -right-4 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-900/80 border border-emerald-600 text-emerald-300 backdrop-blur-sm transition-all hover:bg-emerald-500 hover:text-white hover:border-white group">
-                    <svg className="h-6 w-6 transition-transform group-hover:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <svg className="h-6 w-6 transition-transform group-hover:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
