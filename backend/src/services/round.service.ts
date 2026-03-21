@@ -2,10 +2,16 @@ import { DBInterface } from 'dbSrc/db.service';
 import Round from 'models/rounds';
 
 export class RoundService {
-	private static getRound = async (limit: number, offset = 0) => {
+	private static getRound = async (limit: number, offset = 0, state?: number) => {
+		let conditions = { "gameId": +process.env.GAME_ID!, };
+
+		if (state) {
+			Object.assign(conditions, { state });
+		}
+
 		const round = await DBInterface.all(Round, {
 			sort: [['id', 'DESC']],
-			conditions: { "gameId": +process.env.GAME_ID! },
+			conditions: conditions,
 			limit,
 			offset,
 		});
@@ -22,7 +28,7 @@ export class RoundService {
 	};
 
 	public static getRounds = async () => {
-		const rounds = (await this.getRound(40, 1)).map((round) => {
+		const rounds = (await this.getRound(40, 0, 3)).map((round) => {
 			return round?.coeficient;
 		});
 		return rounds;
