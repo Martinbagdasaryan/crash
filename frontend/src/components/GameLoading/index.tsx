@@ -19,8 +19,8 @@ const GameLoading: React.FC = () => {
 
 			<div className="relative flex flex-col items-center animate-pulseScale">
 				<svg width="200" height="200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<circle cx="12" cy="12" r="9" stroke="#10b981" stroke-width="1" stroke-dasharray="4 4" />
-					<path d="M12 6L17.2 9V15L12 18L6.8 15V9L12 6Z" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="2" />
+					<circle cx="12" cy="12" r="9" stroke="#10b981" strokeWidth="1" strokeDasharray="4 4" />
+					<path d="M12 6L17.2 9V15L12 18L6.8 15V9L12 6Z" fill="#10b981" fillOpacity="0.2" stroke="#10b981" strokeWidth="2" />
 					<path d="M13 8L9 13H12L11 16L15 11H12L13 8Z" fill="#10b981">
 						<animate attributeName="opacity" values="1;0.3;1" dur="0.5s" repeatCount="indefinite" />
 					</path>
