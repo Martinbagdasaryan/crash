@@ -26,12 +26,14 @@ app.use('/api', api);
 
 const server = http.createServer(app);
 initSocket(server);
+const PORT = Number(process.env.BACKEND_PORT) || 8200;
+const HOST = process.env.HOST || '0.0.0.0';
 
 const start = async () => {
 	try {
 		await setDbConnection();
-		server.listen(8250, '0.0.0.0', () => {
-			console.log('🚀 Server running on http://localhost:8250');
+		server.listen(PORT, HOST, () => {
+			console.log(`Server running on http://localhost:${PORT}`);
 		});
 	} catch (err) {
 		console.error('❌ DB error:', err);
